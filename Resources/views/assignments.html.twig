@@ -1,0 +1,90 @@
+{% extends 'page_setup.html.twig' %}
+
+{% block main %}
+    {% from '@theme/components/alert.html.twig' import alert %}
+
+    {% if not scope.canPlan %}
+        {{ alert({type: 'danger', important: true, description: 'weekly_planning.no_teams_view'|trans}) }}
+    {% else %}
+        {% set route = 'weekly_planning_assignments' %}
+        {% set extra = {view: view} %}
+        {% include '@WeeklyPlanning/_week_nav.html.twig' %}
+        <p class="text-secondary small">{{ 'weekly_planning.status'|trans }}: <strong>{{ status|trans }}</strong> · {{ scope.caption|trans }}</p>
+
+        {% if detail|length == 0 %}
+            {{ alert({type: 'info', description: 'weekly_planning.assignments.empty'|trans}) }}
+        {% else %}
+            <div class="row row-cards mb-3">
+                {% for label, value in {
+                    'weekly_planning.summary.planned_hours': summary.assigned,
+                    'weekly_planning.summary.capacity': summary.capacity,
+                    'weekly_planning.summary.utilization': summary.utilization,
+                    'weekly_planning.summary.people_planned': summary.people,
+                    'weekly_planning.summary.customers_covered': summary.customers,
+                    'weekly_planning.summary.projects_covered': summary.projects,
+                    'weekly_planning.summary.remaining_hours': summary.remaining
+                } %}
+                    <div class="col-6 col-md-3 col-xl"><div class="card card-sm"><div class="card-body">
+                        <div class="text-secondary">{{ label|trans }}</div><div class="h3 m-0">{{ value }}</div>
+                    </div></div></div>
+                {% endfor %}
+            </div>
+
+            <ul class="nav nav-tabs mb-0">
+                {% for key, label in views %}
+                    <li class="nav-item"><a class="nav-link {{ key == view ? 'active' : '' }}" href="{{ path('weekly_planning_assignments', {week: week, view: key}) }}">{{ label|trans }}</a></li>
+                {% endfor %}
+                <li class="nav-item ms-auto"><a class="nav-link" href="{{ path('weekly_planning_assignments_export', {week: week}) }}">{{ 'weekly_planning.download_csv'|trans }}</a></li>
+            </ul>
+            <div class="card">
+                <table class="table table-vcenter card-table">
+                    {% if view == 'person' %}
+                        <thead><tr><th>{{ 'weekly_planning.person'|trans }}</th><th class="text-end">{{ 'weekly_planning.assigned_hours'|trans }}</th><th class="text-end">{{ 'weekly_planning.capacity'|trans }}</th><th class="text-end">{{ 'weekly_planning.difference'|trans }}</th><th class="text-end">{{ 'weekly_planning.utilization_percent'|trans }}</th></tr></thead>
+                        <tbody>
+                            {% for row in by_person %}
+                                <tr><td>{{ row.person }}</td><td class="text-end">{{ row.assigned }}</td><td class="text-end">{{ row.capacity }}</td>
+                                    <td class="text-end {{ row.over ? 'text-danger' : '' }}">{{ row.remaining }}</td><td class="text-end">{{ row.utilization }}</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    {% elseif view == 'customer' %}
+                        <thead><tr><th>{{ 'customer'|trans }}</th><th class="text-end">{{ 'weekly_planning.assigned_hours'|trans }}</th></tr></thead>
+                        <tbody>
+                            {% for row in by_customer %}<tr><td>{{ row.label }}</td><td class="text-end">{{ row.hours }}</td></tr>{% endfor %}
+                        </tbody>
+                    {% elseif view == 'project' %}
+                        {% set risk_class = {red: 'bg-red-lt', yellow: 'bg-yellow-lt', green: 'bg-green-lt', idle: 'bg-secondary-lt'} %}
+                        <thead><tr>
+                            <th>{{ 'project'|trans }}</th><th>{{ 'customer'|trans }}</th><th class="text-end">{{ 'weekly_planning.assigned_hours'|trans }}</th>
+                            <th class="text-end" title="{{ 'weekly_planning.planned_all_help'|trans }}">{{ 'weekly_planning.planned_all'|trans }}</th>
+                            <th class="text-end">{{ 'weekly_planning.budget_left'|trans }}</th><th class="text-end">{{ 'weekly_planning.rate'|trans }}</th><th>{{ 'weekly_planning.runs_out'|trans }}</th><th>{{ 'weekly_planning.risk'|trans }}</th>
+                        </tr></thead>
+                        <tbody>
+                            {% for row in by_project %}
+                                <tr>
+                                    <td>{{ row.label }}</td><td>{{ row.customer }}</td><td class="text-end">{{ row.hours }}</td>
+                                    {% if row.budget %}
+                                        <td class="text-end {{ row.budget.over ? 'text-danger fw-bold' : '' }}">{{ row.budget.planned_all }}</td>
+                                        <td class="text-end">{{ row.budget.open }}</td>
+                                        <td class="text-end">{{ 'weekly_planning.per_week'|trans({'%hours%': row.budget.rate}) }}</td>
+                                        <td>{{ row.budget.exhaustion }}</td>
+                                        <td><span class="badge {{ risk_class[row.budget.risk] }}">{{ row.budget.risk_label }}</span></td>
+                                    {% else %}
+                                        <td colspan="5" class="text-secondary">{{ 'weekly_planning.no_budget'|trans }}</td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    {% else %}
+                        <thead><tr><th>{{ 'weekly_planning.person'|trans }}</th><th>{{ 'customer'|trans }}</th><th>{{ 'project'|trans }}</th><th class="text-end">{{ 'weekly_planning.assigned_hours'|trans }}</th><th class="text-end">{{ 'weekly_planning.capacity'|trans }}</th><th>{{ 'weekly_planning.notes'|trans }}</th></tr></thead>
+                        <tbody>
+                            {% for row in detail %}
+                                <tr><td>{{ row.person }}</td><td>{{ row.customer }}</td><td>{{ row.project }}</td>
+                                    <td class="text-end">{{ row.hours|number_format(2, '.', '') }} h</td><td class="text-end">{{ row.capacity|number_format(2, '.', '') }} h</td><td>{{ row.notes }}</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    {% endif %}
+                </table>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}

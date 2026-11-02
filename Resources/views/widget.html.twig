@@ -1,0 +1,71 @@
+{# Laid out like Kimai's own "My projects" widget (colour dots + progress bar).
+   Hours are pre-formatted in PHP; macros are imported inside the embed, where
+   they are in scope. #}
+{% embed '@theme/embeds/card.html.twig' with {'border': false, 'margin_bottom': 0} %}
+    {% import "macros/widgets.html.twig" as widgets %}
+    {% block box_title %}{{ title|trans }}{% endblock %}
+    {% block box_tools %}<span class="text-secondary small">{{ data.week_label }}</span>{% endblock %}
+    {% block box_body_class %}p-0 box-body-scrollable{% endblock %}
+    {% block box_body %}
+        {% if not data.has_plan %}
+            <div class="p-3 text-secondary">
+                {{ 'weekly_planning.widget.no_plan'|trans }}
+                {% if data.rows|length > 0 %}{{ 'weekly_planning.widget.recorded'|trans({'%duration%': data.actual}) }}{% endif %}
+            </div>
+        {% else %}
+            {% set bar_class = {over: 'bg-red', under: 'bg-secondary', on: 'bg-green', unplanned: 'bg-orange'} %}
+            {% set text_class = {over: 'text-red', under: 'text-secondary', on: 'text-green', unplanned: 'text-orange'} %}
+            <table class="table table-vcenter card-table">
+                <tbody>
+                    {% for row in data.rows %}
+                        {# With a note, the project row and its note row read as one block. #}
+                        {% set cell = row.notes ? 'border-bottom-0' : '' %}
+                        <tr>
+                            <td class="{{ cell }}">
+                                {{ widgets.label_project(row.project) }}
+                                <br>
+                                <small>{{ widgets.label_customer(row.project.customer) }}</small>
+                            </td>
+                            <td class="{{ cell }}" style="width: 50%">
+                                <div class="d-flex justify-content-between">
+                                    <span>{{ row.actual }}</span>
+                                    <strong>{{ row.planned ?? '—' }}</strong>
+                                </div>
+                                <div class="progress progress-sm my-1">
+                                    <div class="progress-bar {{ bar_class[row.state] }}" role="progressbar" style="width: {{ row.width }}%"
+                                         aria-valuenow="{{ row.width }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div class="small {{ text_class[row.state] }}">{{ row.caption|trans }}</div>
+                            </td>
+                        </tr>
+                        {% if row.notes %}
+                            <tr>
+                                <td colspan="2" class="pt-0">
+                                    <div class="small text-secondary border-start border-3 border-azure ps-2 py-1"
+                                         style="white-space: pre-line; overflow-wrap: anywhere;">{{ row.notes }}</div>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>{{ 'weekly_planning.widget.total'|trans }}{% if data.capacity %} <span class="text-secondary fw-normal">{{ 'weekly_planning.widget.capacity'|trans({'%duration%': data.capacity}) }}</span>{% endif %}</th>
+                        <th class="text-end">{{ 'weekly_planning.widget.actual_of_planned'|trans({'%actual%': data.actual, '%planned%': data.planned}) }}</th>
+                    </tr>
+                </tfoot>
+            </table>
+        {% endif %}
+    {% endblock %}
+    {# Outside the scrollable body, so the legend is never cut off. #}
+    {% block box_footer %}
+        {% if data.has_plan %}
+            <div class="small">
+                <span class="badge bg-green-lt">{{ 'weekly_planning.widget.legend.on'|trans }}</span>
+                <span class="badge bg-secondary-lt">{{ 'weekly_planning.widget.legend.under'|trans }}</span>
+                <span class="badge bg-red-lt">{{ 'weekly_planning.widget.legend.over'|trans }}</span>
+                <span class="badge bg-orange-lt">{{ 'weekly_planning.widget.legend.unplanned'|trans }}</span>
+            </div>
+        {% endif %}
+    {% endblock %}
+{% endembed %}

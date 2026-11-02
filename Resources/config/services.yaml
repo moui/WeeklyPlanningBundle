@@ -1,0 +1,20 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    # The bundle class itself must stay registered: PluginManager discovers
+    # plugins through the PluginInterface tag on the *service*.
+    KimaiPlugin\WeeklyPlanningBundle\:
+        resource: '../../*'
+        exclude:
+            - '../../Resources/'
+            - '../../Entity/'
+            - '../../Migrations/'
+            - '../../Model/'
+            - '../../vendor/'
+
+    KimaiPlugin\WeeklyPlanningBundle\Controller\:
+        resource: '../../Controller/'
+        tags: ['controller.service_arguments']

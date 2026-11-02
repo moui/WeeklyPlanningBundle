@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="es" datatype="plaintext" original="messages.es.xlf">
+    <body>
+      <trans-unit id="weekly_planning.menu" resname="weekly_planning.menu">
+        <source>Planning</source>
+        <target>Planificación</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.title.planning" resname="weekly_planning.title.planning">
+        <source>Weekly planning</source>
+        <target>Planificación semanal</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.title.assignments" resname="weekly_planning.title.assignments">
+        <source>Weekly assignments</source>
+        <target>Asignaciones semanales</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.title.deviations" resname="weekly_planning.title.deviations">
+        <source>Weekly deviations</source>
+        <target>Desviaciones semanales</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.widget.title" resname="weekly_planning.widget.title">
+        <source>My weekly plan</source>
+        <target>Mi planificación semanal</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.period_status.draft" resname="weekly_planning.period_status.draft">
+        <source>Draft</source>
+        <target>Borrador</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.period_status.published" resname="weekly_planning.period_status.published">
+        <source>Published</source>
+        <target>Publicado</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.period_status.closed" resname="weekly_planning.period_status.closed">
+        <source>Closed</source>
+        <target>Cerrado</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.scope.admin" resname="weekly_planning.scope.admin">
+        <source>Scope: administrator (all people and projects).</source>
+        <target>Alcance: administrador (todas las personas y proyectos).</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.scope.teams" resname="weekly_planning.scope.teams">
+        <source>Scope: teams you lead — %teams%.</source>
+        <target>Alcance: equipos que lideras — %teams%.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.week.previous" resname="weekly_planning.week.previous">
+        <source>Previous week</source>
+        <target>Semana anterior</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.week.next" resname="weekly_planning.week.next">
+        <source>Next week</source>
+        <target>Semana siguiente</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.week.pick" resname="weekly_planning.week.pick">
+        <source>Week (any day)</source>
+        <target>Semana (cualquier día)</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.week_skipped.published" resname="weekly_planning.week_skipped.published">
+        <source>The current week (%week%) is already published, so the next open week was opened.</source>
+        <target>La semana actual (%week%) ya está publicada, así que se abrió la siguiente semana pendiente.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.week_skipped.closed" resname="weekly_planning.week_skipped.closed">
+        <source>The current week (%week%) is already closed, so the next open week was opened.</source>
+        <target>La semana actual (%week%) ya está cerrada, así que se abrió la siguiente semana pendiente.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.no_teams" resname="weekly_planning.no_teams">
+        <source>You do not lead any team in Kimai, so there is nobody to plan. Ask an administrator to make you a team lead.</source>
+        <target>Tu usuario no lidera ningún equipo en Kimai, así que no hay personas para planificar. Pide a un administrador que te asigne como líder de equipo.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.no_teams_view" resname="weekly_planning.no_teams_view">
+        <source>You do not lead any team in Kimai, so nobody is visible in this view.</source>
+        <target>Tu usuario no lidera ningún equipo en Kimai, así que no hay personas visibles para esta vista.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.no_users" resname="weekly_planning.no_users">
+        <source>There are no enabled users in your teams to plan.</source>
+        <target>No hay usuarios habilitados en tus equipos para planificar.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.no_projects" resname="weekly_planning.no_projects">
+        <source>No projects in Kimai are visible to your teams.</source>
+        <target>No hay proyectos visibles para tus equipos en Kimai.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.no_email" resname="weekly_planning.no_email">
+        <source>no email</source>
+        <target>sin email</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.people_with_plan" resname="weekly_planning.people_with_plan">
+        <source>People with a plan</source>
+        <target>Personas con plan</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.saved_hours" resname="weekly_planning.saved_hours">
+        <source>Saved hours</source>
+        <target>Horas guardadas</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.period_status" resname="weekly_planning.period_status">
+        <source>Period status</source>
+        <target>Estado del período</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.update_status" resname="weekly_planning.update_status">
+        <source>Update status</source>
+        <target>Actualizar estado</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.person" resname="weekly_planning.person">
+        <source>Person</source>
+        <target>Persona</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.status" resname="weekly_planning.status">
+        <source>Status</source>
+        <target>Estado</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.show" resname="weekly_planning.show">
+        <source>Show</source>
+        <target>Ver</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.closed_notice" resname="weekly_planning.closed_notice">
+        <source>This period is closed. Changes cannot be saved until it is set back to draft or published.</source>
+        <target>Este período está cerrado. No se pueden guardar cambios hasta volverlo a borrador o publicado.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.capacity_from_kimai" resname="weekly_planning.capacity_from_kimai">
+        <source>Weekly capacity from Kimai</source>
+        <target>Capacidad semanal desde Kimai</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.hours_in_form" resname="weekly_planning.hours_in_form">
+        <source>Hours in the form</source>
+        <target>Horas en el formulario</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.difference" resname="weekly_planning.difference">
+        <source>Difference</source>
+        <target>Diferencia</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.allocations_of" resname="weekly_planning.allocations_of">
+        <source>Allocations for %name%</source>
+        <target>Asignaciones de %name%</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.project_customer" resname="weekly_planning.project_customer">
+        <source>Project [Customer]</source>
+        <target>Proyecto [Cliente]</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.notes" resname="weekly_planning.notes">
+        <source>Notes</source>
+        <target>Notas</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.out_of_scope_project" resname="weekly_planning.out_of_scope_project">
+        <source>Project #%id% (out of scope)</source>
+        <target>Proyecto #%id% (fuera de alcance)</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.remove_row" resname="weekly_planning.remove_row">
+        <source>Remove row</source>
+        <target>Quitar fila</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.add_row" resname="weekly_planning.add_row">
+        <source>Add row</source>
+        <target>Agregar fila</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.save_plan" resname="weekly_planning.save_plan">
+        <source>Save plan</source>
+        <target>Guardar planificación</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.budget_help" resname="weekly_planning.budget_help">
+        <source>Projects with a budget: spent and remaining are the figures of the project's budget bar in Kimai (billable hours only). The rate is the billable average of the last 4 complete weeks; the exhaustion date is estimated from it. "Planned this week" adds up everyone on the project.</source>
+        <target>Proyectos con presupuesto: consumido y restante son los de la barra de presupuesto del proyecto en Kimai (solo horas facturables). El ritmo es el promedio facturable de las últimas 4 semanas completas; con ese ritmo se estima cuándo se agota. "Planificado esta semana" suma a todas las personas del proyecto.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.capacity_help" resname="weekly_planning.capacity_help">
+        <source>The weekly capacity is the person's expected hours in Kimai for that week, minus absences; it is edited in the Kimai user profile. This page only manages the allocations.</source>
+        <target>La capacidad semanal son las horas esperadas de la persona en Kimai para esa semana, descontadas las ausencias; se edita en el perfil de Kimai. Esta pantalla solo administra las asignaciones.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.prefill.actuals" resname="weekly_planning.prefill.actuals">
+        <source>A draft was loaded from the hours actually recorded between %from% and %to%. Adjust it and confirm with Save plan.</source>
+        <target>Se cargó un borrador basado en las horas realmente registradas entre %from% y %to%. Ajústalo y confirma con Guardar planificación.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.prefill.earlier" resname="weekly_planning.prefill.earlier">
+        <source>The previous week has no recorded hours, so a draft was loaded from the last saved plan (week %week%). Nothing is saved until you confirm with Save plan.</source>
+        <target>La semana anterior no tuvo horas registradas, así que se cargó un borrador desde la última planificación guardada (semana %week%). No se guarda nada hasta que confirmes con Guardar planificación.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.error.invalid_hours" resname="weekly_planning.error.invalid_hours">
+        <source>Row %row%: invalid hours.</source>
+        <target>Fila %row%: horas inválidas.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.error.missing_project" resname="weekly_planning.error.missing_project">
+        <source>Row %row%: select a project.</source>
+        <target>Fila %row%: falta seleccionar un proyecto.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.error.project_out_of_scope" resname="weekly_planning.error.project_out_of_scope">
+        <source>Row %row%: unknown project or outside the scope of your teams.</source>
+        <target>Fila %row%: proyecto no reconocido o fuera del alcance de tus equipos.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.error.hours_not_positive" resname="weekly_planning.error.hours_not_positive">
+        <source>Row %row%: hours must be greater than zero.</source>
+        <target>Fila %row%: las horas deben ser mayores a cero.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.error.duplicate_project" resname="weekly_planning.error.duplicate_project">
+        <source>Row %row%: the selected project is already in another row.</source>
+        <target>Fila %row%: el proyecto seleccionado ya fue cargado en otra fila.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.error.empty_plan" resname="weekly_planning.error.empty_plan">
+        <source>Add at least one allocation before saving the plan.</source>
+        <target>Carga al menos una asignación antes de guardar la planificación.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.error.zero_capacity" resname="weekly_planning.error.zero_capacity">
+        <source>The weekly capacity must be greater than zero when there are allocations.</source>
+        <target>La capacidad semanal debe ser mayor a cero cuando hay asignaciones.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.error.over_capacity" resname="weekly_planning.error.over_capacity">
+        <source>The plan exceeds the weekly capacity.</source>
+        <target>La planificación supera la capacidad semanal cargada.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.budget.left" resname="weekly_planning.budget.left">
+        <source>%hours% left</source>
+        <target>quedan %hours%</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.js.budget" resname="weekly_planning.js.budget">
+        <source>Budget %hours%</source>
+        <target>Presupuesto %hours%</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.js.budget_monthly" resname="weekly_planning.js.budget_monthly">
+        <source>Monthly budget %hours%</source>
+        <target>Presupuesto mensual %hours%</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.js.spent" resname="weekly_planning.js.spent">
+        <source>spent %hours%</source>
+        <target>consumido %hours%</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.js.rate" resname="weekly_planning.js.rate">
+        <source>rate %hours%/wk</source>
+        <target>ritmo %hours%/sem</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.js.exhaustion" resname="weekly_planning.js.exhaustion">
+        <source>runs out ~%date%</source>
+        <target>se agota ~%date%</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.js.planned_week" resname="weekly_planning.js.planned_week">
+        <source>planned this week %hours%</source>
+        <target>planificado esta semana %hours%</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.js.over_budget" resname="weekly_planning.js.over_budget">
+        <source>Planned this week (%planned%) exceeds what is left of the budget (%open%).</source>
+        <target>Lo planificado esta semana (%planned%) supera lo que queda del presupuesto (%open%).</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.risk.red" resname="weekly_planning.risk.red">
+        <source>Red</source>
+        <target>Rojo</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.risk.yellow" resname="weekly_planning.risk.yellow">
+        <source>Yellow</source>
+        <target>Amarillo</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.risk.green" resname="weekly_planning.risk.green">
+        <source>Green</source>
+        <target>Verde</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.risk.idle" resname="weekly_planning.risk.idle">
+        <source>No recent activity</source>
+        <target>Sin actividad reciente</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.risk.exhausted" resname="weekly_planning.risk.exhausted">
+        <source>Exhausted</source>
+        <target>Agotado</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.view.person" resname="weekly_planning.view.person">
+        <source>By person</source>
+        <target>Por persona</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.view.customer" resname="weekly_planning.view.customer">
+        <source>By customer</source>
+        <target>Por cliente</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.view.project" resname="weekly_planning.view.project">
+        <source>By project</source>
+        <target>Por proyecto</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.view.status" resname="weekly_planning.view.status">
+        <source>By status</source>
+        <target>Por estado</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.view.detail" resname="weekly_planning.view.detail">
+        <source>Detail</source>
+        <target>Detalle</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.assignments.empty" resname="weekly_planning.assignments.empty">
+        <source>No assignments have been saved for this week yet.</source>
+        <target>Todavía no hay asignaciones guardadas para esta semana.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.summary.planned_hours" resname="weekly_planning.summary.planned_hours">
+        <source>Planned hours</source>
+        <target>Horas planificadas</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.summary.capacity" resname="weekly_planning.summary.capacity">
+        <source>Capacity loaded</source>
+        <target>Capacidad cargada</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.summary.utilization" resname="weekly_planning.summary.utilization">
+        <source>Utilisation</source>
+        <target>Utilización</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.summary.people_planned" resname="weekly_planning.summary.people_planned">
+        <source>People planned</source>
+        <target>Personas planificadas</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.summary.customers_covered" resname="weekly_planning.summary.customers_covered">
+        <source>Customers covered</source>
+        <target>Clientes cubiertos</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.summary.projects_covered" resname="weekly_planning.summary.projects_covered">
+        <source>Projects covered</source>
+        <target>Proyectos cubiertos</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.summary.remaining_hours" resname="weekly_planning.summary.remaining_hours">
+        <source>Hours remaining</source>
+        <target>Horas restantes</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.summary.net_deviation" resname="weekly_planning.summary.net_deviation">
+        <source>Net deviation</source>
+        <target>Desviación neta</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.summary.absolute_deviation" resname="weekly_planning.summary.absolute_deviation">
+        <source>Absolute deviation</source>
+        <target>Desviación absoluta</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.summary.exact_matches" resname="weekly_planning.summary.exact_matches">
+        <source>Exact matches</source>
+        <target>Coincidencias exactas</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.summary.unplanned_work" resname="weekly_planning.summary.unplanned_work">
+        <source>Unplanned work</source>
+        <target>Trabajo no planificado</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.summary.people_affected" resname="weekly_planning.summary.people_affected">
+        <source>People affected</source>
+        <target>Personas impactadas</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.download_csv" resname="weekly_planning.download_csv">
+        <source>Download CSV</source>
+        <target>Descargar CSV</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.assigned_hours" resname="weekly_planning.assigned_hours">
+        <source>Assigned hours</source>
+        <target>Horas asignadas</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.capacity" resname="weekly_planning.capacity">
+        <source>Capacity</source>
+        <target>Capacidad</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.utilization_percent" resname="weekly_planning.utilization_percent">
+        <source>% utilisation</source>
+        <target>% utilización</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.planned_all" resname="weekly_planning.planned_all">
+        <source>Planned (everyone)</source>
+        <target>Planificado (todos)</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.planned_all_help" resname="weekly_planning.planned_all_help">
+        <source>Everyone on the project this week</source>
+        <target>Todas las personas del proyecto esta semana</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.budget_left" resname="weekly_planning.budget_left">
+        <source>Budget left</source>
+        <target>Presupuesto restante</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.rate" resname="weekly_planning.rate">
+        <source>Rate</source>
+        <target>Ritmo</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.per_week" resname="weekly_planning.per_week">
+        <source>%hours%/wk</source>
+        <target>%hours%/sem</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.runs_out" resname="weekly_planning.runs_out">
+        <source>Runs out</source>
+        <target>Se agota</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.risk" resname="weekly_planning.risk">
+        <source>Risk</source>
+        <target>Riesgo</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.no_budget" resname="weekly_planning.no_budget">
+        <source>No budget</source>
+        <target>Sin presupuesto</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.week" resname="weekly_planning.week">
+        <source>Week</source>
+        <target>Semana</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.from_week" resname="weekly_planning.from_week">
+        <source>From the week of</source>
+        <target>Desde la semana de</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.to_week" resname="weekly_planning.to_week">
+        <source>To the week of</source>
+        <target>Hasta la semana de</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.filter.all_people" resname="weekly_planning.filter.all_people">
+        <source>All</source>
+        <target>Todas</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.filter.all_customers" resname="weekly_planning.filter.all_customers">
+        <source>All</source>
+        <target>Todos</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.filter.all_statuses" resname="weekly_planning.filter.all_statuses">
+        <source>All</source>
+        <target>Todos</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.live_note" resname="weekly_planning.live_note">
+        <source>Actual hours are read live from Kimai (finished records only).</source>
+        <target>Horas reales leídas en vivo de Kimai (solo registros finalizados).</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.range_limited" resname="weekly_planning.range_limited">
+        <source>The range was limited to %weeks% weeks.</source>
+        <target>El rango se limitó a %weeks% semanas.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.deviations.empty" resname="weekly_planning.deviations.empty">
+        <source>No plans or recorded hours match the selected filters.</source>
+        <target>No hay planificación ni horas registradas que coincidan con los filtros seleccionados.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.actual_hours" resname="weekly_planning.actual_hours">
+        <source>Actual hours</source>
+        <target>Horas reales</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.planned" resname="weekly_planning.planned">
+        <source>Planned</source>
+        <target>Planificadas</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.actual" resname="weekly_planning.actual">
+        <source>Actual</source>
+        <target>Reales</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.deviation" resname="weekly_planning.deviation">
+        <source>Deviation</source>
+        <target>Desviación</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.deviation_percent" resname="weekly_planning.deviation_percent">
+        <source>% deviation</source>
+        <target>% desvío</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.records" resname="weekly_planning.records">
+        <source>Records</source>
+        <target>Registros</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.deviation_status.matched" resname="weekly_planning.deviation_status.matched">
+        <source>On target</source>
+        <target>Coincide</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.deviation_status.over" resname="weekly_planning.deviation_status.over">
+        <source>Over</source>
+        <target>Sobreejecutado</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.deviation_status.under" resname="weekly_planning.deviation_status.under">
+        <source>Under</source>
+        <target>Subejecutado</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.deviation_status.unplanned" resname="weekly_planning.deviation_status.unplanned">
+        <source>Not planned</source>
+        <target>No planificado</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.deviation_status.not_executed" resname="weekly_planning.deviation_status.not_executed">
+        <source>Not executed</source>
+        <target>No ejecutado</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.widget.no_plan" resname="weekly_planning.widget.no_plan">
+        <source>You have no plan for this week.</source>
+        <target>No tienes una planificación cargada para esta semana.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.widget.recorded" resname="weekly_planning.widget.recorded">
+        <source>%duration% recorded so far.</source>
+        <target>Llevas %duration% registradas.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.widget.done" resname="weekly_planning.widget.done">
+        <source>100% done</source>
+        <target>100% realizado</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.widget.done_over" resname="weekly_planning.widget.done_over">
+        <source>%percent%% done (%duration% over)</source>
+        <target>%percent%% realizado (%duration% de más)</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.widget.done_under" resname="weekly_planning.widget.done_under">
+        <source>%percent%% done (%duration% to go)</source>
+        <target>%percent%% realizado (faltan %duration%)</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.widget.total" resname="weekly_planning.widget.total">
+        <source>Total</source>
+        <target>Total</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.widget.capacity" resname="weekly_planning.widget.capacity">
+        <source>(capacity %duration%)</source>
+        <target>(capacidad %duration%)</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.widget.actual_of_planned" resname="weekly_planning.widget.actual_of_planned">
+        <source>%actual% of %planned%</source>
+        <target>%actual% de %planned%</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.widget.legend.on" resname="weekly_planning.widget.legend.on">
+        <source>on plan</source>
+        <target>en lo planificado</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.widget.legend.under" resname="weekly_planning.widget.legend.under">
+        <source>under</source>
+        <target>por debajo</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.widget.legend.over" resname="weekly_planning.widget.legend.over">
+        <source>over</source>
+        <target>pasado</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.widget.legend.unplanned" resname="weekly_planning.widget.legend.unplanned">
+        <source>not planned</source>
+        <target>no planificado</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

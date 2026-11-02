@@ -1,0 +1,17 @@
+{# Week picker shared by the three planning pages. Expects: route, week, week_label, prev_week, next_week, extra (query params to keep). #}
+<form method="get" action="{{ path(route) }}" class="row g-2 align-items-end mb-3">
+    {% for name, value in extra|default({}) %}
+        {% if value is not null and value != '' %}<input type="hidden" name="{{ name }}" value="{{ value }}">{% endif %}
+    {% endfor %}
+    <div class="col-auto">
+        <a class="btn" href="{{ path(route, extra|default({})|merge({week: prev_week})) }}" title="{{ 'weekly_planning.week.previous'|trans }}">&larr;</a>
+    </div>
+    <div class="col-auto">
+        <label class="form-label" for="wp_week">{{ 'weekly_planning.week.pick'|trans }}</label>
+        <input class="form-control" id="wp_week" type="date" name="week" value="{{ week }}" onchange="this.form.submit()">
+    </div>
+    <div class="col-auto">
+        <a class="btn" href="{{ path(route, extra|default({})|merge({week: next_week})) }}" title="{{ 'weekly_planning.week.next'|trans }}">&rarr;</a>
+    </div>
+    <div class="col-auto pb-2"><strong>{{ week_label }}</strong></div>
+</form>

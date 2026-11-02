@@ -1,0 +1,10 @@
+# Used only by `bin/console kimai:bundle:weeklyplanning:install`, which runs
+# doctrine:migrations:migrate with this file. Paths are relative to the Kimai
+# root (the installer chdir()s there). The bundle keeps its own version table,
+# so Kimai core upgrades and this plugin never see each other's migrations.
+migrations_paths:
+    KimaiPlugin\WeeklyPlanningBundle\Migrations: ./var/plugins/WeeklyPlanningBundle/Migrations
+table_storage:
+    table_name: bundle_migration_weekly_planning
+    version_column_length: 191
+transactional: false

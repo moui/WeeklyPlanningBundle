@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="es" datatype="plaintext" original="flashmessages.es.xlf">
+    <body>
+      <trans-unit id="weekly_planning.flash.out_of_scope" resname="weekly_planning.flash.out_of_scope">
+        <source>The selected person is outside your teams. Reload the page.</source>
+        <target>La persona seleccionada está fuera de tus equipos. Actualiza la página.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.flash.saved" resname="weekly_planning.flash.saved">
+        <source>Plan saved.</source>
+        <target>Planificación guardada correctamente.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.flash.capacity_left" resname="weekly_planning.flash.capacity_left">
+        <source>There are still hours left to assign to fill the weekly capacity.</source>
+        <target>Todavía faltan horas por asignar para completar la capacidad semanal.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.flash.status_failed" resname="weekly_planning.flash.status_failed">
+        <source>The period status could not be updated.</source>
+        <target>No se pudo actualizar el estado del período.</target>
+      </trans-unit>
+      <trans-unit id="weekly_planning.flash.status_updated" resname="weekly_planning.flash.status_updated">
+        <source>Status updated.</source>
+        <target>Estado actualizado.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

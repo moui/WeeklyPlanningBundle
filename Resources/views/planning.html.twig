@@ -1,0 +1,252 @@
+{% extends 'page_setup.html.twig' %}
+
+{# Hours are pre-formatted in PHP (Model\Hours): Twig macros imported in a block
+   are out of scope inside `{% embed %}` and fail silently.
+   UI strings for the inline script come from the data-i18n attribute of #wp_form. #}
+
+{% block main %}
+    {% from '@theme/components/alert.html.twig' import alert %}
+
+    {% if not scope.canPlan %}
+        {{ alert({type: 'danger', important: true, description: 'weekly_planning.no_teams'|trans}) }}
+    {% elseif scope.users|length == 0 %}
+        {{ alert({type: 'danger', important: true, description: 'weekly_planning.no_users'|trans}) }}
+    {% elseif projects|length == 0 %}
+        {{ alert({type: 'danger', important: true, description: 'weekly_planning.no_projects'|trans}) }}
+    {% else %}
+        {% set route = 'weekly_planning' %}
+        {% set extra = {user: target ? target.id : null} %}
+        {% include '@WeeklyPlanning/_week_nav.html.twig' %}
+        <p class="text-secondary small">{{ scope.caption|trans }}</p>
+
+        <div class="row row-cards mb-3">
+            <div class="col-md-4"><div class="card card-sm"><div class="card-body">
+                <div class="text-secondary">{{ 'weekly_planning.people_with_plan'|trans }}</div><div class="h2 m-0">{{ planned_users }}</div>
+            </div></div></div>
+            <div class="col-md-4"><div class="card card-sm"><div class="card-body">
+                <div class="text-secondary">{{ 'weekly_planning.saved_hours'|trans }}</div><div class="h2 m-0">{{ saved_hours }}</div>
+            </div></div></div>
+            <div class="col-md-4"><div class="card card-sm"><div class="card-body">
+                <div class="text-secondary">{{ 'weekly_planning.period_status'|trans }}</div>
+                <form method="post" action="{{ path('weekly_planning_status') }}" class="d-flex gap-2 mt-1">
+                    <input type="hidden" name="_token" value="{{ csrf_token('weekly_planning_status') }}">
+                    <input type="hidden" name="week" value="{{ week }}">
+                    <input type="hidden" name="user" value="{{ target ? target.id : '' }}">
+                    <select name="status" class="form-select form-select-sm">
+                        {% for value, label in status_labels %}
+                            <option value="{{ value }}" {{ value == status ? 'selected' : '' }}>{{ label|trans }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn btn-sm">{{ 'weekly_planning.update_status'|trans }}</button>
+                </form>
+            </div></div></div>
+        </div>
+
+        <form method="get" action="{{ path('weekly_planning') }}" class="row g-2 align-items-end mb-3">
+            <input type="hidden" name="week" value="{{ week }}">
+            <div class="col-md-6">
+                <label class="form-label" for="wp_user">{{ 'weekly_planning.person'|trans }}</label>
+                <select class="form-select" id="wp_user" name="user" onchange="this.form.submit()">
+                    {% for id, label in persons %}
+                        <option value="{{ id }}" {{ target and target.id == id ? 'selected' : '' }}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-auto"><noscript><button type="submit" class="btn">{{ 'weekly_planning.show'|trans }}</button></noscript></div>
+        </form>
+
+        {% for message in errors %}
+            {{ alert({type: 'danger', description: message|trans}) }}
+        {% endfor %}
+        {% if week_notice %}
+            {{ alert({type: 'info', description: week_notice|trans}) }}
+        {% endif %}
+        {% if info %}
+            {{ alert({type: 'success', description: info|trans}) }}
+        {% endif %}
+        {% if closed %}
+            {{ alert({type: 'warning', important: true, description: 'weekly_planning.closed_notice'|trans}) }}
+        {% endif %}
+
+        <div class="row row-cards mb-3">
+            <div class="col-md-4"><div class="card card-sm"><div class="card-body">
+                <div class="text-secondary">{{ 'weekly_planning.capacity_from_kimai'|trans }}</div><div class="h2 m-0">{{ capacity_formatted }}</div>
+            </div></div></div>
+            <div class="col-md-4"><div class="card card-sm"><div class="card-body">
+                <div class="text-secondary">{{ 'weekly_planning.hours_in_form'|trans }}</div><div class="h2 m-0" id="wp_assigned">{{ assigned_formatted }}</div>
+            </div></div></div>
+            <div class="col-md-4"><div class="card card-sm"><div class="card-body">
+                <div class="text-secondary">{{ 'weekly_planning.difference'|trans }}</div>
+                <div class="h2 m-0 {{ over_capacity ? 'text-danger' : '' }}" id="wp_difference">{{ difference_formatted }}</div>
+            </div></div></div>
+        </div>
+
+        <form method="post" action="{{ path('weekly_planning_save') }}" id="wp_form" data-i18n="{{ {
+            budget: 'weekly_planning.js.budget'|trans,
+            budget_monthly: 'weekly_planning.js.budget_monthly'|trans,
+            spent: 'weekly_planning.js.spent'|trans,
+            left: 'weekly_planning.budget.left'|trans,
+            rate: 'weekly_planning.js.rate'|trans,
+            exhaustion: 'weekly_planning.js.exhaustion'|trans,
+            planned_week: 'weekly_planning.js.planned_week'|trans,
+            over_budget: 'weekly_planning.js.over_budget'|trans
+        }|json_encode }}">
+            <input type="hidden" name="_token" value="{{ csrf_token('weekly_planning_save') }}">
+            <input type="hidden" name="week" value="{{ week }}">
+            <input type="hidden" name="user" value="{{ target.id }}">
+            <div class="card mb-3">
+                <div class="card-header"><h3 class="card-title">{{ 'weekly_planning.allocations_of'|trans({'%name%': target.displayName}) }}</h3></div>
+                <table class="table table-vcenter card-table">
+                    <thead>
+                        <tr><th>{{ 'weekly_planning.project_customer'|trans }}</th><th style="width: 9rem" class="text-end">{{ 'hours'|trans }}</th><th>{{ 'weekly_planning.notes'|trans }}</th><th class="w-1"></th></tr>
+                    </thead>
+                    <tbody id="wp_rows">
+                        {% for row in rows %}
+                            <tr>
+                                <td>
+                                    <select class="form-select wp-project" name="rows[{{ loop.index0 }}][project]" {{ closed ? 'disabled' : '' }}>
+                                        <option value="">—</option>
+                                        {% for id, label in projects %}
+                                            <option value="{{ id }}" {{ row.project == id ? 'selected' : '' }}>{{ label }}</option>
+                                        {% endfor %}
+                                        {% if row.project is not null and projects[row.project] is not defined %}
+                                            <option value="{{ row.project }}" selected>{{ 'weekly_planning.out_of_scope_project'|trans({'%id%': row.project}) }}</option>
+                                        {% endif %}
+                                    </select>
+                                    <div class="wp-budget small mt-1"></div>
+                                </td>
+                                <td><input class="form-control text-end wp-hours" type="number" min="0" step="0.25" name="rows[{{ loop.index0 }}][hours]" value="{{ row.hours }}" {{ closed ? 'disabled' : '' }}></td>
+                                <td><input class="form-control" type="text" maxlength="2000" name="rows[{{ loop.index0 }}][notes]" value="{{ row.notes }}" {{ closed ? 'disabled' : '' }}></td>
+                                <td><button type="button" class="btn btn-ghost-danger btn-sm wp-remove" title="{{ 'weekly_planning.remove_row'|trans }}" {{ closed ? 'disabled' : '' }}>&times;</button></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="card-footer d-flex justify-content-between">
+                    <button type="button" class="btn" id="wp_add" {{ closed ? 'disabled' : '' }}>{{ 'weekly_planning.add_row'|trans }}</button>
+                    <button type="submit" class="btn btn-primary" {{ closed ? 'disabled' : '' }}>{{ 'weekly_planning.save_plan'|trans }}</button>
+                </div>
+            </div>
+        </form>
+
+        <template id="wp_row_template">
+            <tr>
+                <td>
+                    <select class="form-select wp-project" name="rows[__i__][project]">
+                        <option value="">—</option>
+                        {% for id, label in projects %}<option value="{{ id }}">{{ label }}</option>{% endfor %}
+                    </select>
+                    <div class="wp-budget small mt-1"></div>
+                </td>
+                <td><input class="form-control text-end wp-hours" type="number" min="0" step="0.25" name="rows[__i__][hours]" value=""></td>
+                <td><input class="form-control" type="text" maxlength="2000" name="rows[__i__][notes]" value=""></td>
+                <td><button type="button" class="btn btn-ghost-danger btn-sm wp-remove" title="{{ 'weekly_planning.remove_row'|trans }}">&times;</button></td>
+            </tr>
+        </template>
+
+        {% if budgets|length > 0 %}
+            <p class="text-secondary small">{{ 'weekly_planning.budget_help'|trans }}</p>
+        {% endif %}
+        <p class="text-secondary small">{{ 'weekly_planning.capacity_help'|trans }}</p>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% if scope.canPlan and target %}
+    <script>
+        (function () {
+            const body = document.getElementById('wp_rows');
+            const template = document.getElementById('wp_row_template');
+            const capacity = {{ capacity|json_encode|raw }};
+            const i18n = JSON.parse(document.getElementById('wp_form').dataset.i18n);
+            const t = function (key, params) {
+                return Object.keys(params).reduce(function (text, name) { return text.replaceAll('%' + name + '%', params[name]); }, i18n[key]);
+            };
+            let next = body.querySelectorAll('tr').length;
+
+            function refresh() {
+                let total = 0;
+                body.querySelectorAll('.wp-hours').forEach(function (input) {
+                    const value = parseFloat(input.value.replace(',', '.'));
+                    if (!isNaN(value)) { total += value; }
+                });
+                const difference = capacity - total;
+                document.getElementById('wp_assigned').textContent = total.toFixed(2) + ' h';
+                const diff = document.getElementById('wp_difference');
+                diff.textContent = difference.toFixed(2) + ' h';
+                diff.classList.toggle('text-danger', difference < 0);
+            }
+
+            document.getElementById('wp_add').addEventListener('click', function () {
+                const html = template.innerHTML.replaceAll('__i__', String(next++));
+                body.insertAdjacentHTML('beforeend', html);
+            });
+            body.addEventListener('click', function (event) {
+                const button = event.target.closest('.wp-remove');
+                if (button) { button.closest('tr').remove(); refresh(); }
+            });
+            body.addEventListener('input', refresh);
+
+            // Budget line under each project picker (see BudgetForecast).
+            const budgets = {{ budgets|json_encode|raw }};
+            const riskClass = {red: 'bg-red-lt', yellow: 'bg-yellow-lt', green: 'bg-green-lt', idle: 'bg-secondary-lt'};
+            const h = function (value) { return Number(value).toFixed(2) + ' h'; };
+
+            function renderBudget(row) {
+                const target = row.querySelector('.wp-budget');
+                const select = row.querySelector('.wp-project');
+                if (!target || !select) { return; }
+                const budget = budgets[select.value];
+                target.replaceChildren();
+                if (!budget) { return; }
+
+                // Hours this week on the project: other people's saved plans plus
+                // every row for it in this form (normally just one).
+                let mine = 0;
+                body.querySelectorAll('tr').forEach(function (other) {
+                    const otherSelect = other.querySelector('.wp-project');
+                    const otherHours = other.querySelector('.wp-hours');
+                    if (otherSelect && otherHours && otherSelect.value === select.value) {
+                        const value = parseFloat(otherHours.value.replace(',', '.'));
+                        if (!isNaN(value)) { mine += value; }
+                    }
+                });
+                const plannedWeek = budget.planned_others + mine;
+
+                const badge = document.createElement('span');
+                badge.className = 'badge me-1 ' + (riskClass[budget.risk] || 'bg-secondary-lt');
+                badge.textContent = budget.risk_label;
+                target.appendChild(badge);
+
+                const parts = [
+                    t(budget.monthly ? 'budget_monthly' : 'budget', {hours: h(budget.budget)}),
+                    t('spent', {hours: h(budget.spent)}) + (budget.usage === null ? '' : ' (' + budget.usage.toFixed(0) + '%)'),
+                    t('left', {hours: h(budget.open)}),
+                    t('rate', {hours: h(budget.rate)}),
+                ];
+                if (budget.exhaustion) { parts.push(t('exhaustion', {date: budget.exhaustion})); }
+                parts.push(t('planned_week', {hours: h(plannedWeek)}));
+                const text = document.createElement('span');
+                text.className = 'text-secondary';
+                text.textContent = parts.join(' · ');
+                target.appendChild(text);
+
+                if (plannedWeek > budget.open) {
+                    const warning = document.createElement('div');
+                    warning.className = 'text-danger';
+                    warning.textContent = t('over_budget', {planned: h(plannedWeek), open: h(budget.open)});
+                    target.appendChild(warning);
+                }
+            }
+
+            function renderAllBudgets() { body.querySelectorAll('tr').forEach(renderBudget); }
+            body.addEventListener('change', renderAllBudgets);
+            body.addEventListener('input', renderAllBudgets);
+            document.getElementById('wp_add').addEventListener('click', renderAllBudgets);
+            body.addEventListener('click', renderAllBudgets);
+            renderAllBudgets();
+        })();
+    </script>
+    {% endif %}
+{% endblock %}

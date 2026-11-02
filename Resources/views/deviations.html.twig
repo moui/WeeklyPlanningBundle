@@ -1,0 +1,107 @@
+{% extends 'page_setup.html.twig' %}
+
+{% block main %}
+    {% from '@theme/components/alert.html.twig' import alert %}
+
+    {% if not scope.canPlan %}
+        {{ alert({type: 'danger', important: true, description: 'weekly_planning.no_teams_view'|trans}) }}
+    {% else %}
+        <form method="get" action="{{ path('weekly_planning_deviations') }}" class="row g-2 align-items-end mb-2">
+            <input type="hidden" name="view" value="{{ view }}">
+            <div class="col-md-2">
+                <label class="form-label" for="wd_from">{{ 'weekly_planning.from_week'|trans }}</label>
+                <input class="form-control" id="wd_from" type="date" name="from" value="{{ from }}">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label" for="wd_to">{{ 'weekly_planning.to_week'|trans }}</label>
+                <input class="form-control" id="wd_to" type="date" name="to" value="{{ to }}">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label" for="wd_user">{{ 'weekly_planning.person'|trans }}</label>
+                <select class="form-select" id="wd_user" name="user">
+                    <option value="">{{ 'weekly_planning.filter.all_people'|trans }}</option>
+                    {% for id, name in people %}<option value="{{ id }}" {{ filters.user == id ~ '' ? 'selected' : '' }}>{{ name }}</option>{% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label" for="wd_customer">{{ 'customer'|trans }}</label>
+                <select class="form-select" id="wd_customer" name="customer">
+                    <option value="">{{ 'weekly_planning.filter.all_customers'|trans }}</option>
+                    {% for id, name in customers %}<option value="{{ id }}" {{ filters.customer == id ~ '' ? 'selected' : '' }}>{{ name }}</option>{% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label" for="wd_status">{{ 'weekly_planning.status'|trans }}</label>
+                <select class="form-select" id="wd_status" name="status">
+                    <option value="">{{ 'weekly_planning.filter.all_statuses'|trans }}</option>
+                    {% for key, label in status_labels %}<option value="{{ key }}" {{ filters.status == key ? 'selected' : '' }}>{{ label|trans }}</option>{% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2"><button type="submit" class="btn btn-primary w-100">{{ 'weekly_planning.show'|trans }}</button></div>
+        </form>
+        <p class="text-secondary small"><strong>{{ range_label }}</strong> · {{ scope.caption|trans }} · {{ 'weekly_planning.live_note'|trans }}</p>
+        {% if error %}{{ alert({type: 'warning', description: error|trans}) }}{% endif %}
+
+        {% if rows|length == 0 %}
+            {{ alert({type: 'info', description: 'weekly_planning.deviations.empty'|trans}) }}
+        {% else %}
+            <div class="row row-cards mb-3">
+                {% for label, value in {
+                    'weekly_planning.summary.planned_hours': summary.assigned,
+                    'weekly_planning.actual_hours': summary.actual,
+                    'weekly_planning.summary.net_deviation': summary.deviation,
+                    'weekly_planning.summary.absolute_deviation': summary.absolute,
+                    'weekly_planning.summary.exact_matches': summary.matched,
+                    'weekly_planning.summary.unplanned_work': summary.unplanned,
+                    'weekly_planning.summary.people_affected': summary.people
+                } %}
+                    <div class="col-6 col-md-3 col-xl"><div class="card card-sm"><div class="card-body">
+                        <div class="text-secondary">{{ label|trans }}</div><div class="h3 m-0">{{ value }}</div>
+                    </div></div></div>
+                {% endfor %}
+            </div>
+
+            <ul class="nav nav-tabs mb-0">
+                {% for key, label in views %}
+                    <li class="nav-item"><a class="nav-link {{ key == view ? 'active' : '' }}" href="{{ path('weekly_planning_deviations', query|merge({view: key})) }}">{{ label|trans }}</a></li>
+                {% endfor %}
+                <li class="nav-item ms-auto"><a class="nav-link" href="{{ path('weekly_planning_deviations_export', query) }}">{{ 'weekly_planning.download_csv'|trans }}</a></li>
+            </ul>
+            <div class="card">
+                <table class="table table-vcenter card-table">
+                    {% if view == 'detail' %}
+                        <thead><tr>
+                            {% if multi_week %}<th>{{ 'weekly_planning.week'|trans }}</th>{% endif %}
+                            <th>{{ 'weekly_planning.person'|trans }}</th><th>{{ 'project'|trans }}</th><th class="text-end">{{ 'weekly_planning.planned'|trans }}</th><th class="text-end">{{ 'weekly_planning.actual'|trans }}</th>
+                            <th class="text-end">{{ 'weekly_planning.deviation'|trans }}</th><th class="text-end">{{ 'weekly_planning.deviation_percent'|trans }}</th><th>{{ 'weekly_planning.status'|trans }}</th>
+                        </tr></thead>
+                        <tbody>
+                            {% for row in rows %}
+                                <tr>
+                                    {% if multi_week %}<td>{{ row.weekStart|date_short }}</td>{% endif %}
+                                    <td>{{ row.userName }}</td><td>{{ row.projectLabel }}</td>
+                                    <td class="text-end">{{ row.assignedFormatted }}</td><td class="text-end">{{ row.actualFormatted }}</td>
+                                    <td class="text-end {{ row.deviation < 0 ? 'text-danger' : '' }}">{{ row.deviationFormatted }}</td>
+                                    <td class="text-end">{{ row.percentFormatted }}</td>
+                                    <td><span class="badge bg-{{ row.statusColor }}-lt">{{ row.statusLabel|trans }}</span></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    {% else %}
+                        {% set groups = view == 'status' ? by_status : (view == 'person' ? by_person : by_customer) %}
+                        <thead><tr>
+                            <th>{{ (view == 'status' ? 'weekly_planning.status' : (view == 'person' ? 'weekly_planning.person' : 'customer'))|trans }}</th>
+                            <th class="text-end">{{ 'weekly_planning.records'|trans }}</th><th class="text-end">{{ 'weekly_planning.planned'|trans }}</th><th class="text-end">{{ 'weekly_planning.actual'|trans }}</th><th class="text-end">{{ 'weekly_planning.deviation'|trans }}</th>
+                        </tr></thead>
+                        <tbody>
+                            {% for group in groups %}
+                                <tr><td>{{ view == 'status' ? group.label|trans : group.label }}</td><td class="text-end">{{ group.count }}</td><td class="text-end">{{ group.assigned }}</td>
+                                    <td class="text-end">{{ group.actual }}</td><td class="text-end {{ group.negative ? 'text-danger' : '' }}">{{ group.deviation }}</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    {% endif %}
+                </table>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}
